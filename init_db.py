@@ -1,8 +1,11 @@
 import sqlite3
 
+
+# Connect to the database file: csvdb.sqlite
 mydb = sqlite3.connect('csvdb.sqlite')
 cursor = mydb.cursor()
 
+# Use this code to remove the table(s) for the database
 #cursor.execute("DROP TABLE ICMP;")
 #cursor.execute("DROP TABLE TCP;")
 #cursor.execute("DROP TABLE UDP;")

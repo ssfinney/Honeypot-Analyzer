@@ -20,7 +20,7 @@ with open('logfile.log', "r") as fin:
 	csv_data = csv.reader(fin, delimiter=' ')
 
 	for row in csv_data:
-		print(row)
+		#print(row)
 		commentSpot = 0
 
 		if row[1] == "honeyd":
@@ -46,9 +46,6 @@ with open('logfile.log', "r") as fin:
 
 			row.append(temp[0].lstrip())
 			row.append(temp[1][:-1])
-
-			
-			print(row)
 
 			cursor.execute('INSERT INTO ICMP' + \
 								'(DATE, PROTOCOL, CONNECTION, ' + \
