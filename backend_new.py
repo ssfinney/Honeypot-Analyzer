@@ -53,7 +53,8 @@ def process_log(log_name, db_name):
 
 
 	# Open a connection to the local SQLite database.
-	#db = sqlite3.connect(db_name)
+	db = sqlite3.connect(db_name)
+	cursor = db.cursor()
 	
 	
 	with open(log_name, 'r') as log:
@@ -64,22 +65,92 @@ def process_log(log_name, db_name):
 		csv_data = csv.reader(log, delimiter=' ')
 		
 		for row in csv_data:
-			
+						
 			if "honeyd" in row[1]:
-				print("FIRE")
 				continue
 				
-			elif "icmp" in row[1]:
-				print("FIRE")
-				date, protocol, connection, src_ip, \
-				dst_ip, info, comment = row
 				
-				print(date + protocol + connection + src_ip+ \
-					  dst_ip + info + comment)
+			elif "icmp" in row[1]:
+			
+				date, time_of_day = rreplace(row[0], '-', ' ', 1).split()
+				protocol, connection, src_ip, dst_ip = row[1:5]
+				
+				info = ''.join(row[5] + " " + row[6])
+				
+				if '[' in row[-1]:
+					environment = row[-1]
+				else:
+					environment = ''
+				
+				#db.execute('Insert into Log (Date, Time, Protocol,' + \
+				#			   'Connection, Source_IP, Dest_IP, Info,' + \
+				#			   'Environment) Values(?,?,?,?,?,?,?,?);', \
+				#			   [date, time_of_day, protocol, connection, \
+				#			   src_ip, dst_ip, info, environment])
+				
+				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
+							[date, time_of_day, protocol, connection, src_ip,\
+							'', dst_ip, '', info, environment])
+							   
+				#print(date + " " + time + " " + protocol + " " + connection + " " + src_ip + " " + \
+				#	  dst_ip + " " + info + " " + environment)
 		
 		
-	#if __name__ == __main__:
-log_name, db_name = process_args()
+			elif "udp" in row[1] or "tcp" in row[1]:
+					
+				date, time_of_day = rreplace(row[0], '-', ' ', 1).split()			
+				
+				protocol, connection, src_ip, src_port, \
+				dst_ip, dst_port = row[1:7]
+				
+				if len(row) >= 9:
+					info = ''.join(row[7] + " " + row[8])
+				elif len(row) >= 8:
+					info = ''.join(row[7])
+									
+				if '[' in row[-1]:
+					environment = row[-1]
+				else:
+					environment = ''
+					
+				#db.execute('Insert into Log (Date, Time, Protocol,' + \
+				#			   'Connection, Source_IP, Source_Port,' + \
+				#			   'Dest_IP, Dest_Port, Info, Environment)'+\
+				#			   ' Values(?,?,?,?,?,?,?,?);', [date, \
+				#			   time_of_day, protocol, connection, src_ip, \
+				#			   src_port, dst_ip, dst_port, info, environment])
+				
+				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
+							[date, time_of_day, protocol, connection, src_ip,\
+							src_port, dst_ip, dst_port, info, environment])
+					
+				#print(date + " " + time + " " + protocol + " " + connection + " " + src_ip + " " + \
+				#	  src_port + " " + dst_ip + " " + dst_port + " " + info + " " + environment)
+				
+	db.commit()
+	end = time()
+	print("Program Complete.")
+	print("Processing time: " + str(end-start))
+	
+	cursor.close()
 		
-process_log(log_name, db_name)
 		
+def rreplace(s, old, new, occurrence):
+	"""Returns new string with the replaced character(s).
+	
+	Credit goes to "mg." from StackOverflow, Question ID: 2556108
+	
+	Keyword arguments:
+	s   -- the string to parse
+	old -- the character to find and replace
+	new -- the new character to replace the old one(s) with
+	
+	"""
+	
+	li = s.rsplit(old, occurrence)
+	return new.join(li)
+		
+		
+if __name__ == "__main__":
+	log_name, db_name = process_args()	
+	process_log(log_name, db_name)
