@@ -33,12 +33,10 @@ def process_args():
 	arg_parser.add_argument('-d', '--db', type=str, default='log.sqlite',
 							help='the database\'s name. Default: log.sqlite')
 	
-	
 	args = vars( arg_parser.parse_args() )
 	
 	db_name, log_name = args.values()
 
-	
 	return (log_name, db_name)
 
 
@@ -48,7 +46,6 @@ def process_log(log_name, db_name):
 	Keyword arguments:
 	log_name -- the log file's name
 	db_name  -- the database file's name
-	
 	"""
 
 
@@ -86,9 +83,7 @@ def process_log(log_name, db_name):
 				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
 						[date, time_of_day, protocol, connection, src_ip,\
 						'', dst_ip, '', info, environment])
-							   
-
-		
+							  
 		
 			elif "udp" in row[1] or "tcp" in row[1]:
 					
@@ -129,7 +124,6 @@ def rreplace(s, old, new, occurrence):
 	s   -- the string to parse
 	old -- the character to find and replace
 	new -- the new character to replace the old one(s) with
-	
 	"""
 	
 	li = s.rsplit(old, occurrence)
