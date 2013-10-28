@@ -6,7 +6,7 @@
 #
 # Authors: 
 # 	Thai-Son Le
-#	Stephen Antalis
+# 	Stephen Antalis
 # 	Stephen Finney
 
 
@@ -82,18 +82,12 @@ def process_log(log_name, db_name):
 				else:
 					environment = ''
 				
-				#db.execute('Insert into Log (Date, Time, Protocol,' + \
-				#			   'Connection, Source_IP, Dest_IP, Info,' + \
-				#			   'Environment) Values(?,?,?,?,?,?,?,?);', \
-				#			   [date, time_of_day, protocol, connection, \
-				#			   src_ip, dst_ip, info, environment])
 				
 				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-							[date, time_of_day, protocol, connection, src_ip,\
-							'', dst_ip, '', info, environment])
+						[date, time_of_day, protocol, connection, src_ip,\
+						'', dst_ip, '', info, environment])
 							   
-				#print(date + " " + time + " " + protocol + " " + connection + " " + src_ip + " " + \
-				#	  dst_ip + " " + info + " " + environment)
+
 		
 		
 			elif "udp" in row[1] or "tcp" in row[1]:
@@ -113,19 +107,10 @@ def process_log(log_name, db_name):
 				else:
 					environment = ''
 					
-				#db.execute('Insert into Log (Date, Time, Protocol,' + \
-				#			   'Connection, Source_IP, Source_Port,' + \
-				#			   'Dest_IP, Dest_Port, Info, Environment)'+\
-				#			   ' Values(?,?,?,?,?,?,?,?);', [date, \
-				#			   time_of_day, protocol, connection, src_ip, \
-				#			   src_port, dst_ip, dst_port, info, environment])
 				
 				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-							[date, time_of_day, protocol, connection, src_ip,\
-							src_port, dst_ip, dst_port, info, environment])
-					
-				#print(date + " " + time + " " + protocol + " " + connection + " " + src_ip + " " + \
-				#	  src_port + " " + dst_ip + " " + dst_port + " " + info + " " + environment)
+						[date, time_of_day, protocol, connection, src_ip,\
+						src_port, dst_ip, dst_port, info, environment])
 				
 	db.commit()
 	end = time()
@@ -150,7 +135,8 @@ def rreplace(s, old, new, occurrence):
 	li = s.rsplit(old, occurrence)
 	return new.join(li)
 		
-		
+
+# Main code below
 if __name__ == "__main__":
 	log_name, db_name = process_args()	
 	process_log(log_name, db_name)
