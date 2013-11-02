@@ -2,7 +2,8 @@
 # This program reads in records from a HoneyD log file,
 # parses them, and stores them in a SQLite database.
 #
-# Command line usage: python backend_new.py --log <logfile name> --db <database name>
+# Command line usage:
+#       python backend_new.py --log <logfile name> --db <database name>
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
 #
