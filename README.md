@@ -11,4 +11,9 @@ This program currently works with log files from [HoneyD's](http://www.honeyd.or
 *Dependencies:*
 Python 3
 	Requests - For windows, see [this](http://stackoverflow.com/questions/1449494/how-do-i-install-python-packages-on-windows).
+
+CouchDB
+	On Linux, do ```sudo apt-get install couchdb```
+	On Windows and Mac, see [this page] (http://couchdb.apache.org/#download).
+
 	
