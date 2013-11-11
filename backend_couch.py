@@ -64,6 +64,8 @@ def process_log(log_name, db_name):
 		
 		csv_data = csv.reader(log, delimiter=' ')
 		
+		docs = []
+		
 		for row in csv_data:
 
 			entry = {"type":"entry"}
@@ -85,18 +87,14 @@ def process_log(log_name, db_name):
 					entry["environment"] = row[-1]
 				#else:
 				#	entry["environment"] = ''
+
+				docs += entry
 				
-				req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-							headers=headers)
+				#req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
+				#			headers=headers)
 
 				print(req)
 
-				
-				
-				#cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-				#		[date, time_of_day, protocol, connection, src_ip,\
-				#		'', dst_ip, '', info, environment])
-							  
 		
 			elif "udp" in row[1] or "tcp" in row[1]:
 					
@@ -114,15 +112,15 @@ def process_log(log_name, db_name):
 				#else:
 				#	environment = ''
 				
-				req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-							headers=headers)
+				#req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
+				#			headers=headers)
+
+				docs += entry
 
 				print(req)	
 				
-				#cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-				#		[date, time_of_day, protocol, connection, src_ip,\
-				#		src_port, dst_ip, dst_port, info, environment])
-				
+					
+
 	end = time()
 	print("Program Complete.")
 	print("Processing time: " + str(end-start))
