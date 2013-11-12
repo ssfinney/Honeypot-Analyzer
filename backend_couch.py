@@ -52,10 +52,11 @@ def process_log(log_name, db_name):
 	db_name  -- the database file's name
 	"""
 
-	url = 'http://localhost:5984/' + str(db_name)
+	url = 'http://localhost:5984/' + str(db_name) + '/_bulk_docs'
+	print("URL is: " + url)
 	headers = {'content-type': 'application/json'}
 	
-	
+	print("Processing log entries...")
 	
 	with open(log_name, 'r') as log:
 		
@@ -67,40 +68,54 @@ def process_log(log_name, db_name):
 		docs = []
 		
 		for row in csv_data:
-
-			entry = {"type":"entry"}
 						
 			if "honeyd" in row[1]:
 				continue
 				
 				
 			elif "icmp" in row[1]:
-			
+
+				entry = {"type":"entry"}
+
 				entry["date"], entry["time_of_day"] = rreplace(row[0], '-', ' ', 1).split()
 
-				entry["protocol"], entry["connection"], entry["src_ip"], \
-				entry["dst_ip"] = row[1:5]
+				entry["protocol"] = row[1][:4] 
+
+				entry["connection"], entry["src_ip"], entry["dst_ip"] = row[2:5]
 				
 				entry["info"] = ''.join(row[5] + " " + row[6])
 				
 				if '[' in row[-1]:
 					entry["environment"] = row[-1]
-				#else:
-				#	entry["environment"] = ''
 
-				docs += entry
-				
-				#req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-				#			headers=headers)
+				docs.append(entry)
 
-				print(req)
+
+				# Insert the entries when the count reaches 5000.
+				# Preliminary benchmarks report a speed of about 6,000 records per second
+				# for batch inserts of 5,000.
+				if len(docs) >= 5000:
+					payload = {"docs":docs}
+
+					req = requests.post(url, 
+							data=json.dumps( payload, separators=(',', ': ') ), 
+				 			headers=headers)
+					if not req.status_code in (200,201):
+						print("A problem occurred when saving records to the database.")
+						print("HTTP Response: " + str(req.status_code))
+						return
+					docs = []
+					
 
 		
 			elif "udp" in row[1] or "tcp" in row[1]:
+
+				entry = {"type":"entry"}
 					
 				entry["date"], entry["time_of_day"] = rreplace(row[0], '-', ' ', 1).split()							
-				entry["protocol"], entry["connection"], entry["src_ip"], \
-				entry["src_port"], entry["dst_ip"], entry["dst_port"] = row[1:7]
+				entry["protocol"] = row[1][:3] 
+
+				entry["connection"], entry["src_ip"], entry["src_port"], entry["dst_ip"], entry["dst_port"] = row[2:7]
 				
 				if len(row) >= 9:
 					entry["info"] = ''.join(row[7] + " " + row[8])
@@ -109,21 +124,39 @@ def process_log(log_name, db_name):
 									
 				if '[' in row[-1]:
 					entry["environment"] = row[-1]
-				#else:
-				#	environment = ''
 				
-				#req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-				#			headers=headers)
+				docs.append(entry)
 
-				docs += entry
+				if len(docs) >= 5000:
+					payload = {"docs":docs}
 
-				print(req)	
+					req = requests.post(url, 
+						data=json.dumps( payload, separators=(',', ': ') ), 
+				 		headers=headers)
+					if not req.status_code in (200,201):
+						print("A problem occurred when saving records to the database.")
+						print("HTTP Response: " + str(req.status_code))
+						return
+					docs = []
+
+
 				
-					
+	print("Adding remaining entries to database...")
+
+	payload = {"docs":docs}
+
+	# Insert the remaining entries into the database. 
+	req = requests.post(url, data=json.dumps( payload, separators=(',', ': ') ), 
+				 headers=headers)
 
 	end = time()
+
+	if not req.status_code in (200,201):
+		print("A problem occurred when saving records to the database.")
+		print("HTTP Response: " + str(req.status_code))
+
+	print("Processing time: " + str(end-start) + " seconds.")
 	print("Program Complete.")
-	print("Processing time: " + str(end-start))
 	
 		
 		
