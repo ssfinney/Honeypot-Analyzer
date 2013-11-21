@@ -12,10 +12,12 @@
 # 	Stephen Antalis
 # 	Stephen Finney
 
-import os
+
 import argparse
 import csv
-import sqlite3
+import json
+import os
+import requests
 from time import time
 
 
@@ -52,7 +54,7 @@ def process_args():
 	
 	args = vars( arg_parser.parse_args() )
 	
-	client_name, db_name, log_name, static_bool, update_bool = args.values()
+	client_name, log_name, db_name, static_bool, update_bool = args.values()
 
 	return (client_name, log_name, db_name, static_bool, update_bool)
 
