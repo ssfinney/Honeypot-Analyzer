@@ -52,11 +52,15 @@ def process_args():
 	arg_parser.add_argument('-u', '--update', type=bool, default=False,
 							help='is this an update of an earlier log file? Default: False')
 	
-	args = vars( arg_parser.parse_args() )
-	
-	client_name, log_name, db_name, static_bool, update_bool = args.values()
 
-	return (client_name, log_name, db_name, static_bool, update_bool)
+	# Parse and retrieve the command line arguments given.
+	args = vars( arg_parser.parse_args() )
+
+	# The parser returns the arguments in this particular order.
+	static_bool, client_name, db_name, log_name, update_bool = args.values()
+
+	return client_name, log_name, db_name, static_bool, update_bool
+
 
 def process_log(log_name, db_name, last_update = 0):
 	"""Processes the log entries and inserts them into the database.
@@ -67,13 +71,20 @@ def process_log(log_name, db_name, last_update = 0):
 	"""
 
 
-	url = 'http://localhost:5984/' + str(db_name)
+	url = 'http://localhost:5984/' + str(db_name) + "/bulkdocs"
 	headers = {'content-type': 'application/json'}
 	
 	
 	with open(log_name, 'r') as log:
+
+
+		# Seek to position of last update
+		# If last update is the end of the file, quit.
 		if log.seek(-1) == last_update:
 			return last_update
+		else:
+			log.seek(last_update)
+
 		
 		# Time this function's runtime
 		start = time()
@@ -183,6 +194,7 @@ def main():
 	# We will use the front end to create our unique client folders which will be contained inside the Clients folder
 	# We will store usernames and passwords in a database controlled by the frontend
 	
+	print("Client's name is: " + client_name)
 	if static_bool:
 		path = ("Clients/" + str(client_name) + "/" + (log_name))
 	
@@ -197,7 +209,6 @@ def main():
 
 	else:
 		# Assume log file is on program server (will probably change later)
-		
 		path = ("Clients/" + client_name + "/" + log_name)
 
 		try:
