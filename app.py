@@ -194,7 +194,6 @@ def main():
 	# We will use the front end to create our unique client folders which will be contained inside the Clients folder
 	# We will store usernames and passwords in a database controlled by the frontend
 	
-	print("Client's name is: " + client_name)
 	if static_bool:
 		path = ("Clients/" + str(client_name) + "/" + (log_name))
 	
