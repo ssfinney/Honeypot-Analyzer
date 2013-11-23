@@ -13,10 +13,5 @@ This program currently works with log files from [HoneyD's](http://www.honeyd.or
 
   - Python Requests module - For windows, see [this](http://stackoverflow.com/questions/1449494/how-do-i-install-python-packages-on-windows).
 
-- CouchDB
+  - Django 1.6 - See the Django [install guide](https://docs.djangoproject.com/en/1.6/topics/install).
 
-  - On Linux, do ```sudo apt-get install couchdb```
-
-  - On Windows and Mac, see [this page] (http://couchdb.apache.org/#download).
-
-	
