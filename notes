@@ -1,0 +1,24 @@
+Configure and use mod_wsgi if it's needed.
+
+Don't forget to re-enable the httpd.conf file at /etc/apache2 and 
+fill in the correct paths to python and the app directory.
+
+
+The problem is I just don't want to spend time dealing with it at the moment.
+
+
+Basically, we want a couple of things for efficiency, if it comes to this:
+
+mod_wsgi caches python code, making it faster. Configuration kind of sucks, though.
+Its "Daemon Mode" would let us serve on multiple processes and threads, too. We might
+be able to use that to our advantage.
+
+We also would want a separate light web server to serve media (maybe?). On second thought,
+we may not need this at all since we're only serving light JS and HTML.
+
+
+Links:
+
+https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/modwsgi/
+https://code.google.com/p/modwsgi/wiki/QuickConfigurationGuide
+

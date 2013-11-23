@@ -15,3 +15,5 @@ This program currently works with log files from [HoneyD's](http://www.honeyd.or
 
   - Django 1.6 - See the Django [install guide](https://docs.djangoproject.com/en/1.6/topics/install).
 
+  - A web server to run it on, like Apache2.
+
