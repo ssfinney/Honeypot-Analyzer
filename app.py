@@ -3,7 +3,7 @@
 # parses them, and stores them in a SQLite database.
 #
 # Command line usage:
-#       python backend_new.py --log <logfile name> --db <database name>
+#       python app.py --log <logfile name> --db <database name>
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
 #
@@ -227,35 +227,3 @@ def main():
 if __name__ == "__main__":
 	main()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-	
