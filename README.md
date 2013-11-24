@@ -19,4 +19,16 @@ This program currently works with log files from [HoneyD's](http://www.honeyd.or
 
   - On Windows and Mac, see [this page] (http://couchdb.apache.org/#download).
 
-	
+
+*NOTES*
+
+Bulk inserts: http://stackoverflow.com/questions/7965949/best-practice-for-bulk-update-in-controller
+
+RailsCast on Devise (Authentication): http://railscasts.com/episodes/209-devise-revised
+
+Alternative Charts - http://railscasts.com/episodes/223-charts
+
+Should we use a SQL DB now?
+If not, it's gonna be hard to do this in rails...
+But if we use a NoSQL DB, using another framework will be harder to implement and take more time.
+
