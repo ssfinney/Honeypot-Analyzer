@@ -1,4 +1,4 @@
 class Entry < ActiveRecord::Base
-  belongs_to :log, :dependent => :destroy
+  belongs_to :log, dependent: :destroy
 end
 
