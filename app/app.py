@@ -71,7 +71,7 @@ def process_log(log_name, db_name, last_update = 0):
 	"""
 
 
-	url = 'http://localhost:5984/' + str(db_name) + "/bulkdocs"
+	url = 'http://localhost:3000/' + str(db_name) + "/bulkdocs"
 	headers = {'content-type': 'application/json'}
 	
 	
