@@ -112,6 +112,8 @@ def process_log(log_name, db_name, last_update = 0):
 				
 				if '[' in row[-1]:
 					entry["environment"] = row[-1]
+				else:
+					entry["environment"] = "-"
 
 				batch.append(entry)
 
@@ -147,6 +149,9 @@ def process_log(log_name, db_name, last_update = 0):
 									
 				if '[' in row[-1]:
 					entry["environment"] = row[-1]
+				else:
+					entry["environment"] = "-"
+
 					
 				batch.append(entry)
 
@@ -227,35 +232,3 @@ def main():
 if __name__ == "__main__":
 	main()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-	
