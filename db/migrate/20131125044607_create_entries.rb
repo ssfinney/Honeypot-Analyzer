@@ -5,7 +5,7 @@ class CreateEntries < ActiveRecord::Migration
       t.datetime :date
       t.datetime :time
       t.string :protocol
-      t.string :connection
+      t.string :conn_type
       t.integer :src_port
       t.integer :dest_port
       t.string :src_ip
