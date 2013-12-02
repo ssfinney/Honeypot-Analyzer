@@ -2,7 +2,8 @@
 
 #collection_select(:log, :log_id, @logs, :name, {prompt: true})
 
-<table>
+<table id="log" data-source="<%= log_url(format: "json") %>">
+  <thead>
   <tr>
     <th>ID</th>
     <th>Date</th>
@@ -16,9 +17,13 @@
     <th>Other information</th>
     <th>Environment</th>
   </tr>
+  </thead>
 
+
+<!--From here down is deprecated. It will be served through the LogDatatable class in app/datatables/log_datatable.rb-->
 <% @entries = Log.find(1).entries %>
 
+  <tbody>
   <% @entries.each do |entry| %>
   <tr>
     <td><%= entry.id %></td>
@@ -37,5 +42,6 @@
     <!--<td> link_to 'Edit', edit_tweet_path(tweet) %></td>-->
     <!--<td> link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete %></td>-->
   </tr>
+  </tbody>
 <% end %>
 

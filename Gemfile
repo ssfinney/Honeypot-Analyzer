@@ -30,6 +30,13 @@ gem 'jbuilder', '~> 1.2'
 # Use Devise for user authentication
 gem 'devise'
 
+# Gems only used for assets and not for production environments by default.
+group :assets do
+  gem 'jquery-datatables-rails'
+end
+
+gem 'will_paginate'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

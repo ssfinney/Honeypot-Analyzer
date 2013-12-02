@@ -3,6 +3,9 @@ class LogsController < ApplicationController
   before_filter :authenticate_user!
 	
   def index
+    respond_to do |format|
+      format.html
+      format.json { render json: LogDatatable.new(view_context) }
     @logs = Log.all
   end
 
