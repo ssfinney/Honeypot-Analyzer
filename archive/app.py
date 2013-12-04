@@ -1,6 +1,6 @@
 # The back-end file for the Honeypot Analyzer.
 # This program reads in records from a HoneyD log file,
-# parses them, and sends them to our web application over HTTPS.
+# parses them, and stores them in a SQLite database.
 #
 # Command line usage:
 #       python backend_new.py --log <logfile name> --db <database name>
@@ -22,7 +22,7 @@ from time import time
 
 
 def process_args():
-	"""Returns the values of the command line arguments from the user."""
+	"""Returns the names of the database and log file."""
 	
 	# A small description of the application for the manual
 	about_app = 'Process a HoneyD log file and send it to a database.'
@@ -59,7 +59,6 @@ def process_args():
 	# The parser returns the arguments in this particular order.
 	static_bool, client_name, db_name, log_name, update_bool = args.values()
 
-	# Let's return the arguments like this; it makes more sense
 	return client_name, log_name, db_name, static_bool, update_bool
 
 
@@ -67,9 +66,8 @@ def process_log(log_name, db_name, last_update = 0):
 	"""Processes the log entries and inserts them into the database.
 	
 	Keyword arguments:
-	log_name    -- the log file's name
-	db_name	    -- the database file's name
-	last_update -- the last update of this logfile, if it exists
+	log_name -- the log file's name
+	db_name  -- the database file's name
 	"""
 
 
