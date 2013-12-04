@@ -27,30 +27,39 @@ def process_args():
 	# A small description of the application for the manual
 	about_app = 'Process a HoneyD log file and send it to a database.'
 
-
 	# Parse the command line arguments (if specified) and 
 	# assign their values to some variables.
 	arg_parser = argparse.ArgumentParser(description = about_app)
 
+	# The list of arguments to add to the program
+	arg_list = [ ['--user', 'str', 'user', 'the user\'s name. Default: user'],
+		     ['--log', 'str', 'logfile.log', 'the log file\'s name. Default: logfile.log'],
+		     ['--update', 'bool', 'False', 'is this an update of an earlier log file? Default: False']
+		     ['--static', 'bool', 'True', 'is this log file static? If HoneyD is updating this file, choose False. Default: True'],
+	           ]
+
+	for arg in args:
+		arg_parser.add_argument(arg[0], type=arg[1], default=arg[2], help=arg[3])
+
 	# Unique ID pulled from login information from front end
-	arg_parser.add_argument('-c', '--client', type=str, default='user',
-							help='the user\'s name. Default: user')
+	#arg_parser.add_argument('-c', '--client', type=str, default='user',
+	#						help='the user\'s name. Default: user')
 
 	# Log file name
-	arg_parser.add_argument('-l', '--log', type=str, default='logfile.log',
-							help='the log file\'s name. Default: logfile.log')
+	#arg_parser.add_argument('-l', '--log', type=str, default='logfile.log',
+	#						help='the log file\'s name. Default: logfile.log')
 
 	# Database name						
-	arg_parser.add_argument('-d', '--db', type=str, default='logs',
-							help='the database\'s name. Default: logs')
+	#arg_parser.add_argument('-d', '--db', type=str, default='logs',
+	#						help='the database\'s name. Default: logs')
 
 	# Bool to see if this is a static log file that won't need to be checked for updates
-	arg_parser.add_argument('-s', '--static', type=bool, default=True,
-							help='is this log file static? Default: True')
+	#arg_parser.add_argument('-s', '--static', type=bool, default=True,
+	#						help='is this log file static? Default: True')
 
 	# Bool to see if this is an update to an earlier static log file
-	arg_parser.add_argument('-u', '--update', type=bool, default=False,
-							help='is this an update of an earlier log file? Default: False')
+	#arg_parser.add_argument('-u', '--update', type=bool, default=False,
+	#						help='is this an update of an earlier log file? Default: False')
 	
 
 	# Parse and retrieve the command line arguments given.
@@ -182,7 +191,8 @@ def process_log(log_name, db_name, last_update = 0):
 		
 		
 def rreplace(s, old, new, occurrence):
-	"""Returns new string with the replaced character(s).
+	"""
+	Returns new string with the replaced character(s).
 	
 	Credit goes to "mg." from StackOverflow, Question ID: 2556108
 	
