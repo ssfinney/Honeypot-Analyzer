@@ -1,5 +1,6 @@
 # TODO: Expand full text search to Sphinx or Solar if necessary.
 # TODO: Add a log_id parameter to pass here in order to display only entries for this log.
+# TODO: Maybe downgrade to Rails 3?
 # Class modified from <NAME> as seen on RailsCast #340: DataTables.
 # It defines a custom class to serve data from rails to the datatable as it's needed.
 
