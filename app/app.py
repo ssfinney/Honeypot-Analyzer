@@ -91,7 +91,7 @@ def process_log(log_name, user_name, last_update = 0):
 	"""
 
 
-	url = 'http://localhost:8000/' + str(user_name) + "/bulkdocs"
+	url = 'http://localhost:3000/' + str(user_name) + "/bulkdocs"
 	headers = {'content-type': 'application/json'}
 	
 	
