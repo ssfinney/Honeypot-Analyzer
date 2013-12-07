@@ -4,7 +4,8 @@ HoneypotAnalyzer::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root :to => 'home#index'
+  root :to   => 'home#index'
+  get 'home' => 'home#index'
 
   resources :users, shallow: true do
     resources :logs, shallow: true do
