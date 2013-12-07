@@ -1,0 +1,49 @@
+<h2>Your logs</h2>
+
+#collection_select(:log, :log_id, @logs, :name, {prompt: true})
+
+<table id="log" data-source="<%= log_url(format: "json") %>">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Protocol</th>
+    <th>Connection Type</th>
+    <th>Source Port</th>
+    <th>Destination Port</th>
+    <th>Source IP Address</th>
+    <th>Destination IP Address</th>
+    <th>Other information</th>
+    <th>Environment</th>
+  </tr>
+  </thead>
+  <tbody>
+  </tbody>
+
+
+<!--From here down is deprecated. It will be served through the LogDatatable class in app/datatables/log_datatable.rb-->
+<% @entries = Log.find(1).entries %>
+
+  <tbody>
+  <% @entries.each do |entry| %>
+  <tr>
+    <td><%= entry.id %></td>
+    <td><%= entry.date %></td>
+    <td><%= entry.time %></td>
+    <td><%= entry.protocol %></td>
+    <td><%= entry.conn_type %></td>
+    <td><%= entry.src_port %></td>
+    <td><%= entry.dest_port %></td>
+    <td><%= entry.src_ip %></td>
+    <td><%= entry.dest_ip %></td>
+    <td><%= entry.info %></td>
+    <td><%= entry.environment %></td>
+
+    <!--<td> link_to 'Show', tweet %></td>-->
+    <!--<td> link_to 'Edit', edit_tweet_path(tweet) %></td>-->
+    <!--<td> link_to 'Destroy', tweet, confirm: 'Are you sure?', method: :delete %></td>-->
+  </tr>
+  </tbody>
+<% end %>
+

@@ -6,6 +6,7 @@ class LogsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: LogDatatable.new(view_context) }
+    end
     @logs = Log.all
   end
 
