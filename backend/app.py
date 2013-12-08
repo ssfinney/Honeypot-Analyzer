@@ -7,6 +7,7 @@
 #
 #	Arguments:
 #		--user <username> 
+#			What's your username on our website?
 #		--log <logfile name> 
 #		--update <True or False>
 #		--static <True or False>
