@@ -92,7 +92,7 @@ def process_log(log_name, user_name, last_update = 0):
 	"""
 
 
-	url = 'http://localhost:3000/' + str(user_name) + "/bulkdocs"
+	url = 'http://localhost:3000/users/' + str(user_name) + "/logs/" + str(log_name) + "/entries.json"
 	headers = {'content-type': 'application/json'}
 	
 	
@@ -241,25 +241,29 @@ def save_data(url, headers, batch):
 	# Preliminary benchmarks report a speed of about 6,000 records per second
 	# for batch inserts of 5,000.
 	if len(batch) >= 5000:
+
 		payload = {"docs":batch}
 
-		req = requests.post(url, 
-			data=json.dumps( payload, separators=(',', ': ') ), 
-			headers=headers)
+		for i in range(5,0,-1):
+			req = requests.post(url, 
+				data=json.dumps( payload, separators=(',', ': ') ), 
+				headers=headers)
 
-		if not req.status_code in (200,201):
+			if req.status_code in (200,201):
+				print("Record save successful.")
+				break
 
-			for i in range(0,5):
+			else:
 				print("A problem occurred when saving records to the database.")
 				print("HTTP Response: " + str(req.status_code))
-				print("Retrying..." + str(5 - i) + " attempts remaining")
+				print("Retrying..." + i + " attempts remaining")
 
 				req = requests.post(url, 
 					data=json.dumps( payload, separators=(',', ': ') ), 
 					headers=headers)
 
-			if not status_code in (200,201):
-				print("Record save failed! We'll try again next time around.")
+		if not req.status_code in (200,201):
+			print("Record save failed! We'll try again next time around.")
 
 
 # Main code below
