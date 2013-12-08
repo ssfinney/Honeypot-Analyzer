@@ -143,7 +143,7 @@ def process_log(log_name, user_name, last_update = 0):
 
 				batch.append(entry)
 
-				if save_data(url, headers, payload):
+				if save_data(url, headers, batch):
 					batch = []
 
 		
@@ -160,7 +160,7 @@ def process_log(log_name, user_name, last_update = 0):
 									
 				batch.append(entry)
 
-				if save_data(url, headers, payload):
+				if save_data(url, headers, batch):
 					batch = []
 
 
@@ -227,7 +227,7 @@ def main():
 			last_update = process_log(path, user_name, last_update)
 			
 
-def save_data(url, headers, payload):
+def save_data(url, headers, batch):
 	"""
 	Saves the given payload into our web application's database over HTTPS
 
@@ -240,7 +240,7 @@ def save_data(url, headers, payload):
 	# Insert the entries when the count reaches 5000.
 	# Preliminary benchmarks report a speed of about 6,000 records per second
 	# for batch inserts of 5,000.
-	if len(docs) >= 5000:
+	if len(batch) >= 5000:
 		payload = {"docs":batch}
 
 		req = requests.post(url, 
@@ -252,7 +252,7 @@ def save_data(url, headers, payload):
 			for i in range(0,5):
 				print("A problem occurred when saving records to the database.")
 				print("HTTP Response: " + str(req.status_code))
-				print("Retrying..." + i + " attempts remaining")
+				print("Retrying..." + str(5 - i) + " attempts remaining")
 
 				req = requests.post(url, 
 					data=json.dumps( payload, separators=(',', ': ') ), 
