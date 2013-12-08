@@ -6,8 +6,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :logs
-
-  #validates :username, presence: true
-  #validates_uniqueness_of :username, :case_sensitive => false
 end
 
