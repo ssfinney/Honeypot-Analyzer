@@ -30,6 +30,17 @@ class EntriesController < ApplicationController
     end
   end
 
+  # TODO: Figure this thing out!
+  def create_many
+    @log = Log.find(params[:log_id])
+    
+    books = []
+    params[:entries].length.times do |i| 
+       << Book.new(:name => "book #{i}")
+    end
+    if Entry.import books
+  end
+
   def show
     @entry = Entry.find([params[:id])
 

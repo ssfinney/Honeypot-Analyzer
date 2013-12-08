@@ -49,5 +49,7 @@ class LogsController < ApplicationController
       format.html { redirect_to logs_url }
       format.json { head :ok }
     end
+  end
+
 end
 
