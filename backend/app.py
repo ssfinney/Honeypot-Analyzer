@@ -3,7 +3,13 @@
 # parses them, and sends them to our web application over HTTPS.
 #
 # Command line usage:
-#       python backend_new.py --log <logfile name> --db <database name>
+#       python app.py 
+#
+#	Arguments:
+#		--user <username> 
+#		--log <logfile name> 
+#		--update <True or False>
+#		--static <True or False>
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
 #
@@ -49,26 +55,6 @@ def process_args():
 	for arg in arg_list:
 		arg_parser.add_argument(arg[0], type=arg[1], default=arg[2], help=arg[3])
 
-	# Unique ID pulled from login information from front end
-	#arg_parser.add_argument('-c', '--client', type=str, default='user',
-	#						help='the user\'s name. Default: user')
-
-	# Log file name
-	#arg_parser.add_argument('-l', '--log', type=str, default='logfile.log',
-	#						help='the log file\'s name. Default: logfile.log')
-
-	# Database name						
-	#arg_parser.add_argument('-d', '--db', type=str, default='logs',
-	#						help='the database\'s name. Default: logs')
-
-	# Bool to see if this is a static log file that won't need to be checked for updates
-	#arg_parser.add_argument('-s', '--static', type=bool, default=True,
-	#						help='is this log file static? Default: True')
-
-	# Bool to see if this is an update to an earlier static log file
-	#arg_parser.add_argument('-u', '--update', type=bool, default=False,
-	#						help='is this an update of an earlier log file? Default: False')
-	
 
 	# Parse and retrieve the command line arguments given.
 	args = vars( arg_parser.parse_args() )
