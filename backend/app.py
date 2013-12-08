@@ -256,7 +256,7 @@ def save_data(url, headers, batch):
 			else:
 				print("A problem occurred when saving records to the database.")
 				print("HTTP Response: " + str(req.status_code))
-				print("Retrying..." + i + " attempts remaining")
+				print("Retrying..." + str(i) + " attempts remaining\n")
 
 				req = requests.post(url, 
 					data=json.dumps( payload, separators=(',', ': ') ), 
