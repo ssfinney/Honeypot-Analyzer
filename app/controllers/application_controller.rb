@@ -8,4 +8,9 @@ class ApplicationController < ActionController::Base
   def page_not_found
     raise ActionController::RoutingError.new('Not Found')
   end
+
+  # Redirect to /logs after successful user login
+  def after_sign_in_path_for(resource)
+    '/logs'
+  end
 end
