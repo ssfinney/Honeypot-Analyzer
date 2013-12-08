@@ -16,6 +16,7 @@
 import argparse
 import csv
 import json
+import os
 import requests
 from time import time
 
@@ -99,7 +100,7 @@ def process_log(log_name, user_name, last_update = 0):
 
 		# Seek to position of last update
 		# If last update is the end of the file, quit.
-		if log.seek(-1) == last_update:
+		if log.seek(os.SEEK_END) == last_update:
 			return last_update
 		else:
 			log.seek(last_update)
@@ -113,6 +114,9 @@ def process_log(log_name, user_name, last_update = 0):
 		batch = []
 		
 		for row in csv_data:
+
+			# Each entry is a dictionary
+			entry = {}
 						
 			if "honeyd" in row[1]:
 				continue
