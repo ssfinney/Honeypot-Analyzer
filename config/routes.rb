@@ -5,7 +5,6 @@ HoneypotAnalyzer::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root :to   => 'home#index'
-  get 'home' => 'home#index'
 
   resources :users, shallow: true do
     resources :logs, shallow: true do
