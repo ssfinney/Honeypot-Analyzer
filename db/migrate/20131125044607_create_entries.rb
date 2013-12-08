@@ -6,8 +6,8 @@ class CreateEntries < ActiveRecord::Migration
       t.datetime :time
       t.string :protocol
       t.string :conn_type
-      t.integer :src_port
-      t.integer :dest_port
+      t.integer :src_port, null: true
+      t.integer :dest_port, null: true
       t.string :src_ip
       t.string :dest_ip
       t.string :info

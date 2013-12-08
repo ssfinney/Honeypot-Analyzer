@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131201211421) do
+ActiveRecord::Schema.define(version: 20131208231009) do
 
   create_table "entries", force: true do |t|
     t.integer  "log_id"
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20131201211421) do
     t.string   "environment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "src_port_id"
+    t.integer  "dest_port_id"
   end
 
   create_table "logs", force: true do |t|
