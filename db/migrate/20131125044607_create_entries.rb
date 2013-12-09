@@ -1,7 +1,6 @@
 class CreateEntries < ActiveRecord::Migration
   def change
     create_table :entries do |t|
-      t.integer :log_id
       t.datetime :date
       t.datetime :time
       t.string :protocol
