@@ -14,7 +14,7 @@ class LogDatatable
   def as_json(options = {})
     {
       sEcho: params[:sEcho].to_i,
-      iTotalRecords: Entry.where(id: params[:log_id]).count,
+      iTotalRecords: Entry.where(id: params[:id]).count,
       iTotalDisplayRecords: entries.total_entries,
       aaData: data
     }
