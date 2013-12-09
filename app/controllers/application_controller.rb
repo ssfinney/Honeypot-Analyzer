@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  # For now, this is disabled until we determine an adequate
+  # security solution for this application
+
+  # protect_from_forgery with: :exception
 
   # This code throws a 404 when a routing error occurs
   # This still need to be implemented in the routes
