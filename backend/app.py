@@ -119,7 +119,8 @@ def process_log(log_name, user_name, last_update = 0):
 				else:
 					entry["environment"] = "-"
 				
-				
+
+			# Parse the record as an ICMP packet	
 			if "icmp" in row[1]:
 			
 				entry["protocol"] = row[1][:4]
@@ -133,7 +134,8 @@ def process_log(log_name, user_name, last_update = 0):
 				if save_data(url, headers, batch):
 					batch = []
 
-		
+
+			# Parse the record as a TCP/UDP packet
 			elif "udp" in row[1] or "tcp" in row[1]:
 					
 				entry["protocol"] = row[1][:3]
