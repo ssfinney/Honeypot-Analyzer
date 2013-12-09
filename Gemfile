@@ -34,6 +34,9 @@ gem 'jquery-datatables-rails'
 gem 'jquery-ui-rails'
 gem 'will_paginate'
 
+# Add ActiveRecord's import for mass inserts
+gem 'activerecord-import', '>= 0.4.0'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

@@ -1,5 +1,7 @@
 class EntriesController < ApplicationController
-  before_filter :authenticate_user!
+  # We're disabling authentication for now.
+  # See the log_controller for more details.
+  # before_filter :authenticate_user!
 
   def index
     @entries = Entry.all
@@ -32,17 +34,27 @@ class EntriesController < ApplicationController
 
   # POST: /users/<id>/logs/<id>/entries/create_many
   def create_many
-    @log = Log.find(params[:log_id])
-    
+    @user = User.where(email: params[:user_email]).take
+    @log = Log.where(name: params[:log_name],
+		     user_id: @user.id).take
+
     entries = []
-    params[:entries].length.times do |i| 
-      entries << Entry.new(params[:entries][i])
+    params[:entries].size.times do |i|
+      @entry = Entry.new(params[:entries][i])
+      @entry.log_id = @log.id
+      entries << @entry #Entry.new(params[:entries][i], log_id: @log.id)
     end
-    Entry.import entries
+
+    if Entry.import entries
+        respond_to do |format|
+          format.html { redirect_to logs_url }
+	  format.json { head :ok }
+        end
+    end
   end
 
   def show
-    @entry = Entry.find([params[:id])
+    @entry = Entry.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb

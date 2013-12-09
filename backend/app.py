@@ -19,6 +19,7 @@
 # 	Stephen Antalis
 # 	Stephen Finney
 
+# TODO: Program stops at exactly 25000 entries. Fix it.
 
 import argparse
 import csv
@@ -80,13 +81,12 @@ def process_log(log_name, user_name, last_update = 0):
 
 	post_log_name = log_name.split('/')[-1]
 
-	#url = 'http://localhost:3000/users/' + str(user_name) + "/logs/" + str(post_log_name) + "/entries/create_many"
 	url = 'http://localhost:3000/users/logs/entries/create_many.json'
 	headers = {'content-type': 'application/json'}
 	user_email = "test@test.com"
 
 	new_log = {"name":post_log_name, "user_email":user_email}
-	#make_log = requests.post('http://localhost:3000/users/' + str("test@test.com") + '/logs',
+
 	make_log = requests.post('http://localhost:3000/users/logs.json',
 				data=json.dumps( new_log, separators=(',', ': ') ), 
 				headers=headers)
@@ -111,6 +111,7 @@ def process_log(log_name, user_name, last_update = 0):
 		
 		csv_data = csv.reader(log, delimiter=' ')
 
+		# Each batch of entries is an array
 		batch = []
 		
 		for row in csv_data:
@@ -138,7 +139,7 @@ def process_log(log_name, user_name, last_update = 0):
 			
 				entry["protocol"] = row[1][:4]
 
-				entry["dst_ip"] = row[4]
+				entry["dest_ip"] = row[4]
 				
 				entry["info"] = ''.join(row[5] + " " + row[6])
 
@@ -153,7 +154,7 @@ def process_log(log_name, user_name, last_update = 0):
 					
 				entry["protocol"] = row[1][:3]
 
-				entry["src_port"], entry["dst_ip"], entry["dst_port"] = row[4:7]
+				entry["src_port"], entry["dest_ip"], entry["dest_port"] = row[4:7]
 				
 				if len(row) >= 9:
 					entry["info"] = ''.join(row[7] + " " + row[8])
@@ -253,7 +254,8 @@ def save_data(url, log_name, user_email, headers, batch):
 
 			if req.status_code in (200,201):
 				print("Record save successful.")
-				break
+				batch = []
+				return True
 
 			else:
 				print("A problem occurred when saving records to the database.")
@@ -266,6 +268,7 @@ def save_data(url, log_name, user_email, headers, batch):
 
 		if not req.status_code in (200,201):
 			print("Record save failed! We'll try again next time around.")
+			return False
 
 
 # Main code below
