@@ -1,6 +1,12 @@
 class LogsController < ApplicationController
 
-  before_filter :authenticate_user!
+  # This authenticates the user through devise.
+  # This is disabled since it blocks external POST requests
+  # to this controller, and we need that for our python backend code.
+
+  # Thus, we will not authenticate here until our security planning
+  # is complete (probably another semester).
+  # before_filter :authenticate_user!
 	
   # GET /users/<id>/logs
   # GET /users/<id>/logs.json
@@ -34,9 +40,28 @@ class LogsController < ApplicationController
   # POST /users/<id>/logs
   # POST /users/<id>/logs.json
   def create
-    @log = Log.new(params[:log])
-    @log.save
-    respond_with @log
+    if Log.where(name: params[:name]).empty?
+      @user = User.where(email: params[:user_email]).take
+      @log = Log.new(name: params[:name],
+		     user_id: @user.id)
+
+      if @log.save
+        respond_to do |format|
+          format.html { redirect_to logs_url }
+	  format.json { head :ok }
+        end
+      end
+
+    else
+      respond_to do |format|
+        format.html { redirect_to logs_url }
+	format.json { head :ok }
+      end
+    end
+  end
+
+  def log_params
+    params.require(:log).permit(:name)
   end
 
   # DELETE /users/<id>/logs/<id>

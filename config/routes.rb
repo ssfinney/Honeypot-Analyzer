@@ -15,6 +15,8 @@ HoneypotAnalyzer::Application.routes.draw do
   resources :logs
 
   get 'users/:id/logs' => 'logs#index'
+  post 'users/logs' => 'logs#create'
+  post 'users/logs/entries/create_many' => 'entries#create_many'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

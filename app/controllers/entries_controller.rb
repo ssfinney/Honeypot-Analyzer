@@ -30,15 +30,15 @@ class EntriesController < ApplicationController
     end
   end
 
-  # TODO: Figure this thing out!
+  # POST: /users/<id>/logs/<id>/entries/create_many
   def create_many
     @log = Log.find(params[:log_id])
     
-    books = []
+    entries = []
     params[:entries].length.times do |i| 
-       << Book.new(:name => "book #{i}")
+      entries << Entry.new(params[:entries][i])
     end
-    if Entry.import books
+    Entry.import entries
   end
 
   def show

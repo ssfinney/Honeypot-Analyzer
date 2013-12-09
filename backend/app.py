@@ -78,9 +78,25 @@ def process_log(log_name, user_name, last_update = 0):
 	last_update -- The last update of this logfile, if it exists.
 	"""
 
+	post_log_name = log_name.split('/')[-1]
 
-	url = 'http://localhost:3000/users/' + str(user_name) + "/logs/" + str(log_name) + "/entries.json"
+	#url = 'http://localhost:3000/users/' + str(user_name) + "/logs/" + str(post_log_name) + "/entries/create_many"
+	url = 'http://localhost:3000/users/logs/entries/create_many'
 	headers = {'content-type': 'application/json'}
+
+	new_log = {"name":post_log_name, "user_email":"test@test.com"}
+	#make_log = requests.post('http://localhost:3000/users/' + str("test@test.com") + '/logs',
+	make_log = requests.post('http://localhost:3000/users/logs.json',
+				data=json.dumps( new_log, separators=(',', ': ') ), 
+				headers=headers)
+
+	if make_log.status_code not in (200,201):
+		print("There was a problem creating the new log file. Try again later.")
+		print("HTTP status code: " + str(make_log.status_code))
+		return
+
+	import sys
+	sys.exit(0)
 	
 	
 	with open(log_name, 'r') as log:
