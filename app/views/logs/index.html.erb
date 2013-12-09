@@ -1,8 +1,8 @@
 <h2>Your logs</h2>
 
-#collection_select(:log, :log_id, @logs, :name, {prompt: true})
+Choose the log to display: <%= collection_select(:log, :log_id, @logs, :id, :name, {prompt: true}) %>
 
-<table id="log" data-source="<%= log_url(format: "json") %>">
+<table id="log" data-source="<%= log_url(format: "json", id: 1) %>">
   <thead>
   <tr>
     <th>ID</th>
