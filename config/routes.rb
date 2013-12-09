@@ -14,6 +14,8 @@ HoneypotAnalyzer::Application.routes.draw do
 
   resources :logs
 
+  get 'users/:id/logs' => 'logs#index'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
