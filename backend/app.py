@@ -81,10 +81,11 @@ def process_log(log_name, user_name, last_update = 0):
 	post_log_name = log_name.split('/')[-1]
 
 	#url = 'http://localhost:3000/users/' + str(user_name) + "/logs/" + str(post_log_name) + "/entries/create_many"
-	url = 'http://localhost:3000/users/logs/entries/create_many'
+	url = 'http://localhost:3000/users/logs/entries/create_many.json'
 	headers = {'content-type': 'application/json'}
+	user_email = "test@test.com"
 
-	new_log = {"name":post_log_name, "user_email":"test@test.com"}
+	new_log = {"name":post_log_name, "user_email":user_email}
 	#make_log = requests.post('http://localhost:3000/users/' + str("test@test.com") + '/logs',
 	make_log = requests.post('http://localhost:3000/users/logs.json',
 				data=json.dumps( new_log, separators=(',', ': ') ), 
@@ -94,10 +95,6 @@ def process_log(log_name, user_name, last_update = 0):
 		print("There was a problem creating the new log file. Try again later.")
 		print("HTTP status code: " + str(make_log.status_code))
 		return
-
-	import sys
-	sys.exit(0)
-	
 	
 	with open(log_name, 'r') as log:
 
@@ -126,9 +123,9 @@ def process_log(log_name, user_name, last_update = 0):
 
 			else:
 				# Do the parsing common to all protocol types
-				entry["date"], entry["time_of_day"] = rreplace(row[0], '-', ' ', 1).split()
+				entry["date"], entry["time"] = rreplace(row[0], '-', ' ', 1).split()
 				
-				entry["connection"], entry["src_ip"] = row[2:4]
+				entry["conn_type"], entry["src_ip"] = row[2:4]
 
 				if '[' in row[-1]:
 					entry["environment"] = row[-1]
@@ -147,7 +144,7 @@ def process_log(log_name, user_name, last_update = 0):
 
 				batch.append(entry)
 
-				if save_data(url, headers, batch):
+				if save_data(url, post_log_name, user_email, headers, batch):
 					batch = []
 
 
@@ -165,7 +162,7 @@ def process_log(log_name, user_name, last_update = 0):
 									
 				batch.append(entry)
 
-				if save_data(url, headers, batch):
+				if save_data(url, post_log_name, user_email, headers, batch):
 					batch = []
 
 
@@ -232,7 +229,7 @@ def main():
 			last_update = process_log(path, user_name, last_update)
 			
 
-def save_data(url, headers, batch):
+def save_data(url, log_name, user_email, headers, batch):
 	"""
 	Saves the given payload into our web application's database over HTTPS
 
@@ -247,7 +244,7 @@ def save_data(url, headers, batch):
 	# for batch inserts of 5,000.
 	if len(batch) >= 5000:
 
-		payload = {"docs":batch}
+		payload = {"entries":batch, "log_name":log_name, "user_email":user_email}
 
 		for i in range(5,0,-1):
 			req = requests.post(url, 
