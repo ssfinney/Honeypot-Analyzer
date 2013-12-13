@@ -14,12 +14,12 @@
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
 #
+# TODO: Only multiples of 5000 entries at a time are saved.
+#
 # Authors: 
 # 	Thai-Son Le
 # 	Stephen Antalis
 # 	Stephen Finney
-
-# TODO: Program stops at exactly 25000 entries. Fix it.
 
 import argparse
 import csv
@@ -62,7 +62,6 @@ def process_args():
 	args = vars( arg_parser.parse_args() )
 
 	# The parser returns the arguments in this particular order.
-	#static_bool, client_name, db_name, log_name, update_bool = args.values()
 	update_bool, static_bool, user_name, log_name = args.values()
 
 	# Let's return the arguments like this; it makes more sense
@@ -145,7 +144,7 @@ def process_log(log_name, user_name, last_update = 0):
 
 				batch.append(entry)
 
-				if save_data(url, post_log_name, user_email, headers, batch):
+				if len(batch) >= 5000 and save_data(url, post_log_name, user_email, headers, batch):
 					batch = []
 
 
@@ -163,14 +162,21 @@ def process_log(log_name, user_name, last_update = 0):
 									
 				batch.append(entry)
 
-				if save_data(url, post_log_name, user_email, headers, batch):
+				if len(batch) >= 5000 and save_data(url, post_log_name, user_email, headers, batch):
 					batch = []
+
+
+		# Save one last time for the remainder of the records
+		if len(batch) > 0:
+			if not save_data(url, post_log_name, user_email, headers, batch):
+				print("ERROR! Last batch of saves didn't POST to the server.")
 
 
 		last_update = log.tell()
 		with open(log_name[:-3] + "txt", 'w') as pointers:
 			pointers.write(str(last_update))	
 				
+
 	end = time()
 	print("Program Complete.")
 	print("Processing time: " + str(end-start))
@@ -235,43 +241,47 @@ def save_data(url, log_name, user_email, headers, batch):
 	Saves the given payload into our web application's database over HTTPS
 
 	Keyword arguments:
-	url     -- The url to send the HTTPS POST request to.
-	headers -- The headers to send along with the POST.
-	payload -- The collection of records to send to the web application.
+	url        -- The url to send the HTTP POST request to.
+	log_name   -- The name of the log to save to
+	user_email -- The email for the user
+	headers    -- The headers to send along with the POST.
+	batch      -- The collection of records to send to the web application.
 	"""
 
-	# Insert the entries when the count reaches 5000.
-	# Preliminary benchmarks report a speed of about 6,000 records per second
-	# for batch inserts of 5,000.
-	if len(batch) >= 5000:
+	# Insert the entries
+	payload = {"entries":batch, "log_name":log_name, "user_email":user_email}
 
-		payload = {"entries":batch, "log_name":log_name, "user_email":user_email}
+	for i in range(5,0,-1):
+		req = requests.post(url, 
+			data=json.dumps( payload, separators=(',', ': ') ), 
+			headers=headers)
 
-		for i in range(5,0,-1):
+		if req.status_code in (200,201):
+			print("Record save successful.")
+			batch = []
+			return True
+
+		else:
+			print("A problem occurred when saving records to the database.")
+			print("HTTP Response: " + str(req.status_code))
+			print("Retrying..." + str(i) + " attempts remaining\n")
+
 			req = requests.post(url, 
 				data=json.dumps( payload, separators=(',', ': ') ), 
 				headers=headers)
 
-			if req.status_code in (200,201):
-				print("Record save successful.")
-				batch = []
-				return True
 
-			else:
-				print("A problem occurred when saving records to the database.")
-				print("HTTP Response: " + str(req.status_code))
-				print("Retrying..." + str(i) + " attempts remaining\n")
+	# If the records can't be saved, return False
+	if not req.status_code in (200,201):
+		print("Record save failed! We'll try again next time around.")
+		return False
 
-				req = requests.post(url, 
-					data=json.dumps( payload, separators=(',', ': ') ), 
-					headers=headers)
-
-		if not req.status_code in (200,201):
-			print("Record save failed! We'll try again next time around.")
-			return False
+	# If all goes well, return True
+	return True
 
 
-# Main code below
+
+# Call the main method to run the program
 if __name__ == "__main__":
 	main()
 
