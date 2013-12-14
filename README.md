@@ -82,7 +82,7 @@ This file will *not* be run by the end user. Instead, it will be called by the t
 #### Log monitor
 This executable bash program will link a remote server to the honeypot analyzer's server and copy over then update the web user's honeypot log file on the host's server indefinately.
 
-The below file will use a previously created public key saved in the file ```authorized_keys``` located at ```/home/<hostUser>/analyzer/keys/authorized_keys``` on the analyzer server to install RSA encrypted ssh keys onto a remote server and then will use the rsync command to first pull a log file from that server and update that file every 10 seconds if needed. It assumes that the HoneyPot analyzer is stored at /home/<hostUser>/analyzer/ and that it is already setup with the folder 'users' inside. See the rest of the README for help.
+The user file will use a previously created public key saved in the file ```authorized_keys``` located at ```/home/<hostUser>/analyzer/keys/authorized_keys``` on the analyzer server to install RSA encrypted ssh keys onto a remote server and then will use the rsync command to first pull a log file from that server and update that file every 10 seconds if needed. It assumes that the HoneyPot analyzer is stored at /home/<hostUser>/analyzer/ and that it is already setup with the folder 'users' inside. See the rest of the README for help.
 
 This file must be created as an executable bash file. 
 
@@ -126,11 +126,3 @@ Alternative Charts - http://railscasts.com/episodes/223-charts
 
 Also, look at custom rake tasks! There's a railscast. #66 I believe.
 
-Should we use a SQL DB now?
-If not, it's gonna be hard to do this in rails...
-But if we use a NoSQL DB, using another framework will be harder to implement and take more time.
-
-Yep, let's just do a regular SQL db...:(
-
-
-tewt tgrwrgwergfhgfdhgfdfg
