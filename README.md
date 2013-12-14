@@ -107,8 +107,37 @@ person hosting the honeyput analyzer and that the server's password will need to
 ---
 #### Back-end Installation
 
-Open the terminal and execute the following shell command on the intended HoneyPot analyzer host server: ---
+Open the terminal and execute the following shell command on the intended HoneyPot analyzer host server:   
 ```wget --link--```
 
-Execute the following command to generate your own personal rsa key: ---
+Execute the following command to generate your own personal rsa key:  
 ```ssh-keygen -t rsa```
+
+You will see the following text:  
+```Generating public/private rsa key pair.```  
+```Enter file in which to save the key (/home/username/.ssh/id_rsa):```  
+
+The default settings (just hitting enter) are generally acceptable but root may want to change the folder location.  
+
+You will then be asked to enter a passphrase. If you enter one, you will be prompted for it every time you connect
+the remote server. You then must verify the passphrase and you will see the following text:
+
+```Enter passphrase (empty for no passphrase):```  
+```Enter same passphrase again:```  
+```Your identification has been saved in /home/username/.ssh/id_rsa.```  
+```Your public key has been saved in /home/username/.ssh/id_rsa.pub.```  
+```The key fingerprint is:```  
+```bf:7b:63:a8:91:29:76:2b:03:ac:21:8c:91:4a:fa:11 username@server.domain.com```  
+
+The passphrase can be changed at anytime with ```sshkeygen -p```  
+
+Next type the following commands:  
+```cd ~/.ssh```  
+```cp id_rsa.pub authorized_keys```  
+Note that if you changed the initial location, you will need to go to that folder first.
+
+Then type:  
+```mv authorized_keys /home/<username>/analyzer/keys/```  
+Note that the <username> will need to be changeded to your account's username.
+
+
