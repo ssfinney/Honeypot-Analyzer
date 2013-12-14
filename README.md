@@ -113,3 +113,6 @@ If not, it's gonna be hard to do this in rails...
 But if we use a NoSQL DB, using another framework will be harder to implement and take more time.
 
 Yep, let's just do a regular SQL db...:(
+
+
+tewt tgrwrgwergf
