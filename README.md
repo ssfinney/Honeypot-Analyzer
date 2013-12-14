@@ -1,7 +1,18 @@
-Honeypot-Analyzer
+Honeypot Analyzer
 =================
 
-A program to retrieve and analyze entries from a network honeypot.
+This is a program to retrieve and analyze log entries from a network honeypot.
+
+***Contents***
+* Introduction & Description
+* Breakdown of System Components
+* Installation Instructions
+* Execution Instructions
+* User Functional Walk-through
+* Troubleshooting
+* Known Issues
+
+
 
 This program currently works with log files from [HoneyD's](http://www.honeyd.org) open source software.
 
