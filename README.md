@@ -80,7 +80,25 @@ This file will *not* be run by the end user. Instead, it will be called by the t
 
 
 #### Log monitor
-***Stephen, this is the RSync section***
+This executable bash program will link a remote server to the honeypot analyzer's server and copy over then update the web user's honeypot log file on the host's server indefinately.
+
+The below file will use a previously created public key saved in the file ```authorized_keys``` located at ```/home/<hostUser>/analyzer/keys/authorized_keys``` on the analyzer server to install RSA encrypted ssh keys onto a remote server and then will use the rsync command to first pull a log file from that server and update that file every 10 seconds if needed. It assumes that the HoneyPot analyzer is stored at /home/<hostUser>/analyzer/ and that it is already setup with the folder 'users' inside. See the rest of the README for help.
+
+This file must be created as an executable bash file. 
+
+Required Input fields:
+```newUser <user@host.servername.com> <location> <userID>```
+
+newUser is the executable
+```<user@host.servername.com>``` is the user account with the log file and server or ip address
+```<location>``` is the specific path to the log file on the server
+```<userID>``` is the user id of the user on the web server. 
+
+example execution call:
+```newUser smith@host.servername.com /home/smith/Honeypot/Logs/log.log JohnSmith```
+
+Note that in the below code, the ```<hostUser>``` field needs to be modified to be the account of the
+person hosting the honeyput analyzer and that the server's password will need to be entered after the scp request call.
 
 
 ### Web Application
@@ -115,5 +133,4 @@ But if we use a NoSQL DB, using another framework will be harder to implement an
 Yep, let's just do a regular SQL db...:(
 
 
-### Installation Instructions
----
+tewt tgrwrgwergfhgfdhgfdfg
