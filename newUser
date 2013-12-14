@@ -7,7 +7,7 @@
 #pull a log file from that server and update that file every 10 seconds if needed. It assumes
 #that the HoneyPot analyzer is stored at /home/<hostUser>/analyzer/ and that it is already
 #setup with the folder 'users' inside.
-#See the README for setup
+#See the README.md for setup
 
 #This file must be created as an executable bash file. 
 
