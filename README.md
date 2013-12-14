@@ -1,9 +1,10 @@
 Honeypot Analyzer
 =================
 
-This is a program to retrieve and analyze log entries from a network honeypot.
+***Under construction. Use at your own risk.***
 
-***Contents***
+
+## Table of Contents
 * Introduction & Description
 * Breakdown of System Components
 * Installation Instructions
@@ -14,10 +15,63 @@ This is a program to retrieve and analyze log entries from a network honeypot.
 
 
 
-This program currently works with log files from [HoneyD's](http://www.honeyd.org) open source software.
+### Introduction & Description
+---
 
-***Under construction. Use at your own risk.***
+This is a program to retrieve and analyze log entries from a network honeypot. It parses the logs, stores them inside our web application's database, and produces analytics for the log information. 
 
+This program currently works only with log files from [HoneyD's](http://www.honeyd.org) open-source software.
+
+
+#### What is a Honeypot?
+
+A network honeypot is software that makes your server *look* like a vulnerable machine for hackers. In reality, it's completely isolated from the outside world, but it looks like a hackable machine on a network.
+
+This attracts attackers who want to steal information, data, or place malware on your system. With the honeypot software, you can see where the attackers are attacking from, their IP addresses, and information on which vulnerability was used.
+
+#### The Honeypot Log File
+
+Our system gets these logs and analyzes the data inside them. HoneyD log files have the following fields in them, and we'll parse them.
+
+For the TCP or UDP protocol, the following fields exist:
+
+ - date 
+ - time 
+ - protocol 
+ - connection type 
+ - source IP 
+ - target IP 
+ - source port 
+ - target port 
+ - other information 
+ - environment information
+
+For the ICMP protocol, the entries are the same except for the port fields, which are omitted.
+
+
+#### Our System
+
+Our analyzer is a combination of a log parser, a log monitor, and a web application. These parts work together to create the analytics for the log information. In the next section, we'll discuss the system's components and each of their roles in this project.
+
+### Breakdown of System Components
+---
+
+#### Log parser
+
+The log parser is a Python program with a few parameters. The program takes a log file, parses it with the fields described in the last section, and sends it over HTTP to the web application. For now, the code is written to handle only local HTTP traffic, but will be modified in the future to send data to a live website. The program is located at  ```backend/app.py```. Below are the parameters and their meaning:
+
+Command line usage:
+       python app.py
+
+        Arguments:
+                --user <user name> What's your username on our website?
+
+                --log <logfile name> 
+                         The path for the log file
+
+                --update <True or False>
+                          Is this update
+                --static <True or False>
 
 **Dependencies:**
 - Python 3
