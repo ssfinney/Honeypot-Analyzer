@@ -67,11 +67,24 @@ Command line usage:
                 --user <user name> What's your username on our website?
 
                 --log <logfile name> 
-                         The path for the log file
+                         The path to the log file.
 
                 --update <True or False>
-                          Is this update
+                          Is this file an update of one previously parsed? Default: False.
+                          
                 --static <True or False>
+                          Is this a static file, or one that is being updated by HoneyD constantly? Default: True.
+                          
+                         
+This file will *not* be run by the end user. Instead, it will be called by the two other components of the program, which are described below.
+
+
+#### Log monitor
+***Stephen, this is the RSync section***
+
+
+### Web Application
+
 
 **Dependencies:**
 - Python 3
