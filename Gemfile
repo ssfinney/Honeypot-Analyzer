@@ -42,6 +42,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :github => 'anjlab/bootstrap-rails'
+
+gem 'simple_form'
+
+group :development, :test do
+	gem 'railroady'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
