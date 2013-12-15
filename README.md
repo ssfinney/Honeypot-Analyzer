@@ -107,7 +107,7 @@ example execution call:
 ```newUser smith@host.servername.com /home/smith/Honeypot/Logs/log.log JohnSmith```
 
 Note that in the below code, the ```<hostUser>``` field needs to be modified to be the account of the
-person hosting the honeyput analyzer and that the server's password will need to be entered after the scp request call.
+person hosting the honeypot analyzer and that the server's password will need to be entered after the scp request call.
 
 
 #### Web Application
