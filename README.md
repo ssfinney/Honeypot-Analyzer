@@ -103,6 +103,43 @@ person hosting the honeyput analyzer and that the server's password will need to
 
 #### Web Application
 
+We're using Ruby on Rails 4 as our web application (although this will most likely change to Rails 3 in the near future). 
+
+
+##### MVC 
+
+The framework is an MVC model (which stands for Models, Views, and Controllers) that define and execute on our data.
+
+In the application, we have models for users, logs, and log entries. 
+
+These models are the definitions for what things the database will store.
+
+The views render the data and use embedded Ruby within them to dynamically render information based on user input.
+
+The controllers define the logic for this interaction, and map the HTTP verbs (GET, POST, PUT, & DELETE) to real actions inside of the framework.
+
+##### The Database 
+
+In addition, we're using SQLite as our database model for the website. Since the application is still under heavy development, SQLite's simplicity is very helpful. In the future, this will most likely change to MySQL to accommodate a real user base.
+
+Right now, the database is integrated with Rails' database helper structure called ActiveRecord, which is an ORM (Object-relational mapping) that helps us manipulate and query the database from within the framework. Database migrations are made when changes to the database have to be made. 
+
+##### Purpose of the web application
+
+The web application is designed to facilitate the user's needs with regard to their log files. They can upload their logs or point our code to their server in order to monitor their ongoing Honeypot instance. This is all done through the front-end UI in the web application. User accounts are made for them so they can see their logs and interact with them. They can also see the analytics of their logs as well.
+
+##### Analytics
+
+The app will render different kinds of analytical information for the user to see and interact with. The following are examples of analytics planned for the application:
+
+* Data table - This will be a paginated table of a single log file (the user will select which one it wants to use). The user can then search, filter, and sort the log entries within the table as they desire.
+
+* Charts - There will be a number of Bar and Pie charts visualizing the data, according to whatever parameters the user chooses. Some particularly useful charts will include charts for the top source & target IP addresses and port numbers.
+
+* Maps - There will be a Google Map with the source IP address' geo-location information on it. This information will include city & country information about the source addresses. Later, there may be a heatmap implementation, which would visualize clusters of hits from the same geographical locations.
+
+More information about the web application implementation and UI design can be found in the official design documentation.
+
 ### Installation Instructions
 ---
 #### Back-end Installation
@@ -141,6 +178,7 @@ Note that if you changed the initial location, you will need to go to that folde
 
 Then type:  
 ```mv authorized_keys /home/<username>/analyzer/keys/```  
-Note that the <username> will need to be changeded to your account's username.
+Note that the <username> will need to be changed to your account's username.
+
 
 
