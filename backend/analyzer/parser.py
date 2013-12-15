@@ -3,7 +3,7 @@
 # parses them, and sends them to our web application over HTTPS.
 #
 # Command line usage:
-#       python app.py 
+#       python parser.py 
 #
 #	Arguments:
 #		--user <username> 
@@ -13,8 +13,6 @@
 #		--static <True or False>
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
-#
-# TODO: Only multiples of 5000 entries at a time are saved.
 #
 # Authors: 
 # 	Thai-Son Le
@@ -78,6 +76,7 @@ def process_log(log_name, user_name, last_update = 0):
 	last_update -- The last update of this logfile, if it exists.
 	"""
 
+	# The below information is needed for the HTTP POST request
 	post_log_name = log_name.split('/')[-1]
 
 	url = 'http://localhost:3000/users/logs/entries/create_many.json'
