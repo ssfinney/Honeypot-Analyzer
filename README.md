@@ -58,22 +58,23 @@ Our analyzer is a combination of a log parser, a log monitor, and a web applicat
 
 #### Log parser
 
-The log parser is a Python program with a few parameters. The program takes a log file, parses it with the fields described in the last section, and sends it over HTTP to the web application. For now, the code is written to handle only local HTTP traffic, but will be modified in the future to send data to a live website. The program is located at  ```backend/app.py```. Below are the parameters and their meaning:
+The log parser is a Python program with a few parameters. The program takes a log file, parses it with the fields described in the last section, and sends it over HTTP to the web application. For now, the code is written to handle only local HTTP traffic, but will be modified in the future to send data to a live website. The program is located at  ```backend/analyzer/parser.py```. Below are the parameters and their meaning:
 
 Command line usage:
-       python app.py
+       python parser.py
 
-        Arguments:
-                --user <user name> What's your username on our website?
+Arguments:
+* --user <user name>    
+  - What's your username on our website?
 
-                --log <logfile name> 
-                         The path to the log file.
+* --log <logfile name> 
+  - The path to the log file.
 
-                --update <True or False>
-                          Is this file an update of one previously parsed? Default: False.
-                          
-                --static <True or False>
-                          Is this a static file, or one that is being updated by HoneyD constantly? Default: True.
+* --update <True or False>
+  - Is this file an update of one previously parsed? Default: False.
+
+* --static <True or False>
+  - Is this a static file, or one that is being updated by HoneyD constantly? Default: True.
                           
                          
 This file will *not* be run by the end user. Instead, it will be called by the two other components of the program, which are described below.
