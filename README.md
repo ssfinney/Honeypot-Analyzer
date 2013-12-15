@@ -12,6 +12,7 @@ Honeypot Analyzer
 * User Functional Walk-through
 * Troubleshooting
 * Known Issues
+* Licensing
 
 
 
