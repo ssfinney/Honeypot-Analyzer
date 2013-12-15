@@ -107,8 +107,11 @@ person hosting the honeyput analyzer and that the server's password will need to
 ---
 #### Back-end Installation
 
-Open the terminal and execute the following shell command on the intended HoneyPot analyzer host server:   
-```wget --link--```
+Open the terminal and execute the following shell command on the intended HoneyPot analyzer host server:
+```wget https://raw.github.com/ssfinney/Honeypot-Analyzer/master/backend/backend.tar.gz```
+
+Then, you'll need to decompress it into the directory of your choosing:
+```tar -xvf backend.tar.gz```
 
 Execute the following command to generate your own personal rsa key:  
 ```ssh-keygen -t rsa```
