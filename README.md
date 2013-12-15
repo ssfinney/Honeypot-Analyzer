@@ -1,7 +1,7 @@
 Honeypot Analyzer
 =================
 
-***Under construction. Use at your own risk.***
+***This is alpha software and is under construction. Use at your own risk.***
 
 
 ## Table of Contents
