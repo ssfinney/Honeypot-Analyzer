@@ -4,19 +4,19 @@ Honeypot Analyzer
 ***This is alpha software and is under construction. Use at your own risk.***
 
 
-## Table of Contents
-* Introduction & Description
-* Breakdown of System Components
-* Installation Instructions
-* Execution Instructions
-* User Functional Walk-through
-* Troubleshooting
-* Known Issues
-* Licensing
+## Table of Contents<a name="table_of_contents"></a>
+* [Introduction & Description](#introduction)
+* [Breakdown of System Components](#breakdown)
+* [Installation Instructions](#installation)
+* [Execution Instructions](#execution)
+* [User Functional Walk-through](#walkthrough)
+* [Troubleshooting](#troubleshooting)
+* [Known Issues](#known_issues)
+* [Licensing](#licensing)
 
 
 
-### Introduction & Description
+### Introduction & Description<a name="introduction"></a>
 ---
 
 This is a program to retrieve and analyze log entries from a network honeypot. It parses the logs, stores them inside our web application's database, and produces analytics for the log information. 
@@ -61,7 +61,7 @@ If you want to simply use our software, ***you can do so without any installatio
 
 In the meantime, if you want to host this software on *your* machine, then keep reading. We'll walk-through the concepts behind the software, what each piece means, and how to install and run it all. It's pretty long, but you can do it.
 
-### Breakdown of System Components
+### Breakdown of System Components<a name="breakdown"></a>
 ---
 
 #### Log parser
@@ -149,7 +149,7 @@ The app will render different kinds of analytical information for the user to se
 
 More information about the web application implementation and UI design can be found in the official design documentation.
 
-### Installation Instructions
+### Installation Instructions<a name="installation"></a>
 ---
 #### Back-end Installation
 
@@ -214,3 +214,18 @@ Done! Now, we have to initialize the app before we use it. First, you need to ru
 After that's done, we need to migrate the database. If you didn't already, you now have SQLite. Rails uses a tool called "rake" to do stuff to the database for you. So, all you need to do is: ```rake db:migrate``` and you're done!
 
 Finally, run the Rails server by doing ```rails server```. When you do that, you can run the web application out of your browser by going to ```http://localhost:3000``` and you're done!
+
+### Execution Instructions<a name="execution"></a>
+---
+
+### User Functional Walk-through<a name="walkthrough"></a>
+---
+
+### Troubleshooting<a name="troubleshooting"></a>
+---
+
+### Known Issues<a name="known_issues"></a>
+---
+
+### Licensing<a name="licensing"></a>
+---
