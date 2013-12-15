@@ -22,12 +22,11 @@ This is a program to retrieve and analyze log entries from a network honeypot. I
 
 This program currently works only with log files from [HoneyD's](http://www.honeyd.org) open-source software.
 
-
 #### What is a Honeypot?
 
 A network honeypot is software that makes your server *look* like a vulnerable machine for hackers. In reality, it's completely isolated from the outside world, but it looks like a hackable machine on a network.
 
-This attracts attackers who want to steal information, data, or place malware on your system. With the honeypot software, you can see where the attackers are attacking from, their IP addresses, and information on which vulnerability was used.
+This attracts attackers who want to steal information, data, or place malware on your system. With the honeypot software, you can see where the attackers are attacking from, their IP addresses, and information on which vulnerability was used. With our analyzer, you can visualize this data and really get a feel for what's going on in your network or where your security can be improved.
 
 #### The Honeypot Log File
 
@@ -52,6 +51,12 @@ For the ICMP protocol, the entries are the same except for the port fields, whic
 #### Our System
 
 Our analyzer is a combination of a log parser, a log monitor, and a web application. These parts work together to create the analytics for the log information. In the next section, we'll discuss the system's components and each of their roles in this project.
+
+#### Usage
+
+If you want to simply use our software, ***you can do so without any installation!*** Once the web application is complete and live, you'll be able to log in as a user, upload your logs, and see the magic happen right there. We'll keep you posted about developments in this area.
+
+In the meantime, if you want to host this software on *your* machine, then keep reading. We'll walk-through the concepts behind the software, what each piece means, and how to install and run it all. It's pretty long, but you can do it.
 
 ### Breakdown of System Components
 ---
@@ -182,4 +187,6 @@ Then type:
 Note that the <username> will need to be changed to your account's username.
 
 
+#### Web application installation
 
+This is a Rails app, so you'll need to install Ruby on Rails on your machine. Again, just like for the back-end code above, we're assuming that you're running this on a Linux machine.
