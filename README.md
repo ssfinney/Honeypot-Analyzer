@@ -190,3 +190,18 @@ Note that the <username> will need to be changed to your account's username.
 #### Web application installation
 
 This is a Rails app, so you'll need to install Ruby on Rails on your machine. Again, just like for the back-end code above, we're assuming that you're running this on a Linux machine.
+
+First, you need to install Ruby on your machine. [Here](https://www.ruby-lang.org/en/downloads) is a good guide for setting it up.
+
+When Ruby is done installing, you'll have access to a great tool for Ruby applications, called rubygems. This will let you install Ruby packages (like Rails and *many* of the packages you'll use in Rails) with a simple command.
+
+Run ```gem install rails``` on the command line to install Rails with all of its dependencies. Easy!
+
+Once Rails is done installing, you need to download the source code from here on GitHub. To do that, you'll need to pull the code down using git. Install git (if you don't have it already; you probably do and don't know it) using this: 
+```git clone https://github.com/ssfinney/Honeypot-Analyzer.git```
+
+Done! Now, we have to initialize the app before we use it. First, you need to run ```bundler``` to install the rubygems we need to run the app. That's it; just type ```bundler```. 
+
+After that's done, we need to migrate the database. If you didn't already, you now have SQLite. Rails uses a tool called "rake" to do stuff to the database for you. So, all you need to do is: ```rake db:migrate``` and you're done!
+
+Finally, run the Rails server by doing ```rails server```. When you do that, you can run the web application out of your browser by going to ```http://localhost:3000``` and you're done!
