@@ -150,11 +150,13 @@ More information about the web application implementation and UI design can be f
 ---
 #### Back-end Installation
 
-Open the terminal and execute the following shell command on the intended HoneyPot analyzer host server:
+First, open the terminal and execute the following shell command on the intended HoneyPot analyzer host server:
 ```wget https://raw.github.com/ssfinney/Honeypot-Analyzer/master/backend/backend.tar.gz```
 
 Then, you'll need to decompress it into the directory of your choosing:
 ```tar -xvf backend.tar.gz```
+
+#### Log monitor
 
 Execute the following command to generate your own personal rsa key:  
 ```ssh-keygen -t rsa```
@@ -185,6 +187,10 @@ Note that if you changed the initial location, you will need to go to that folde
 Then type:  
 ```mv authorized_keys /home/<username>/analyzer/keys/```  
 Note that the <username> will need to be changed to your account's username.
+
+#### Log parser
+
+The parser is included in the tarball file you downloaded, so there's no need to do anything else for it right now.
 
 
 #### Web application installation
