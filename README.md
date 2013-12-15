@@ -256,7 +256,7 @@ It's that simple! No installation required.
 
 If you're having trouble getting this set up on your machine, then it's possible there's a bug in our code. Please submit issues on this GitHub site, or submit pull requests with your own fix for our code! We welcome both.
 
-If you need help, please don't hesitate to submit an issue or contact Stephen Finney at stephen.finney@gmail.com.
+If you need help, please don't hesitate to submit an issue or contact Stephen Finney at stephen.s.finney@gmail.com.
 
 In general, make sure that your monitor is running and pointed to the correct location and server, and that your Rails server is running and is working correctly.
 
