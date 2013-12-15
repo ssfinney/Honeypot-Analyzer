@@ -245,14 +245,27 @@ Just run ```rails server```. When you do that, you can run the web application o
 ### User Functional Walk-through<a name="walkthrough"></a>
 ---
 
+As we mentioned in [the Usage section](#introduction), to use the software without hosting it yourself, simply use the live website! Right now, we don't have a live site up and running and the web application isn't finished. You can see our progress here on the GitHub page.
+
+When the website is live, users can go to it, sign up for an account, and start monitoring & uploading log files to be analyzed. After signing up, they will be able to select a log file to look at and perform any analysis that they wish on it. Maps, charts, data tables, and custom searching/sorting will all be supported. 
+
+It's that simple! No installation required.
+
 ### Troubleshooting<a name="troubleshooting"></a>
 ---
+
+If you're having trouble getting this set up on your machine, then it's possible there's a bug in our code. Please submit issues on this GitHub site, or submit pull requests with your own fix for our code! We welcome both.
+
+If you need help, please don't hesitate to submit an issue or contact Stephen Finney at stephen.finney@gmail.com.
+
+In general, make sure that your monitor is running and pointed to the correct location and server, and that your Rails server is running and is working correctly.
 
 ### Known Issues<a name="known_issues"></a>
 ---
 
+There is a list of known issues on the Issues page here on GitHub. Just go to the right-hand side of the page and click "Issues" to see what's been reported so far. Feel free to add your own!
+
 ### Licensing<a name="licensing"></a>
 ---
 
-
-
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">Honeypot Analyzer</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">Thai-Son Le, Stephen Antalis, and Stephen Finney</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.<br />Based on a work at <a xmlns:dct="http://purl.org/dc/terms/" href="https://www.github.com/ssfinney/Honeypot-Analyzer" rel="dct:source">https://www.github.com/ssfinney/Honeypot-Analyzer</a>
