@@ -23,6 +23,8 @@ This is a program to retrieve and analyze log entries from a network honeypot. I
 
 This program currently works only with log files from [HoneyD's](http://www.honeyd.org) open-source software.
 
+This README acts as the project's user manual and includes the necessary information to install and run the program.
+
 #### What is a Honeypot?
 
 A network honeypot is software that makes your server *look* like a vulnerable machine for hackers. In reality, it's completely isolated from the outside world, but it looks like a hackable machine on a network.
