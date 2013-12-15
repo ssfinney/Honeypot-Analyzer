@@ -209,14 +209,38 @@ Run ```gem install rails``` on the command line to install Rails with all of its
 Once Rails is done installing, you need to download the source code from here on GitHub. To do that, you'll need to pull the code down using git. Install git (if you don't have it already; you probably do and don't know it) using this: 
 ```git clone https://github.com/ssfinney/Honeypot-Analyzer.git```
 
-Done! Now, we have to initialize the app before we use it. First, you need to run ```bundler``` to install the rubygems we need to run the app. That's it; just type ```bundler```. 
+Done! You've finished installing Rails. Now, we need to install the dependencies for the app. First, you need to run ```bundler``` to install the rubygems we need to run the app. That's it; just type ```bundler```. 
 
 After that's done, we need to migrate the database. If you didn't already, you now have SQLite. Rails uses a tool called "rake" to do stuff to the database for you. So, all you need to do is: ```rake db:migrate``` and you're done!
 
-Finally, run the Rails server by doing ```rails server```. When you do that, you can run the web application out of your browser by going to ```http://localhost:3000``` and you're done!
-
 ### Execution Instructions<a name="execution"></a>
 ---
+
+#### Log monitor
+
+When starting the log monitor, you're effectively creating a new user for the program. The monitor program is called ```newUser``` and is located inside the tarball that you downloaded. The usage for the monitor is defined as: ```newUser <user@hostname> <location> <userID>```
+
+Here's what the parameters mean:
+* user@hostname - The user's name and the domain host name that he/she is on. This is the server that the HoneyD Honeypot software is running on, so make sure you point it in the right place. 
+     - Example: smith@host.servername.com
+
+* location - This is the path on that server to the log file that HoneyD is updating. It's the full path from root. Make sure it's correct. 
+     - Example: /home/smith/Honeypot/Logs/log.log
+
+* userID - This is the user's name that he signed up with on the web application. Don't worry, we'll go over how to set that up below in a little bit.
+     - Example: JohnSmith
+
+#### Log Parser
+
+The web application and the log monitor above both execute the log parser when they have logs to process. If the log monitor is running, it will execute an instance of the parser to process the files that it's retrieving. 
+
+The web application executes it when a user uploads some static log files to the server to process them. In this case, the parser dies when finished but it will continue running if it's processing a log file that is being updated by the monitor.
+
+#### Web Application
+
+Now, we have to initialize the app before we use it. Fortunately, this takes almost no effort whatsoever. You already learned to [install the Rails framework and its dependencies](#installation). You also migrated the database already, so all that's left to do it start the Rails server. 
+
+Just run ```rails server```. When you do that, you can run the web application out of your browser by going to ```http://localhost:3000``` and you're done!
 
 ### User Functional Walk-through<a name="walkthrough"></a>
 ---
@@ -229,3 +253,6 @@ Finally, run the Rails server by doing ```rails server```. When you do that, you
 
 ### Licensing<a name="licensing"></a>
 ---
+
+
+
