@@ -1,0 +1,7 @@
+parser	parser-module.html
+parser.process_log	parser-module.html#process_log
+parser.save_data	parser-module.html#save_data
+parser.__package__	parser-module.html#__package__
+parser.process_args	parser-module.html#process_args
+parser.main	parser-module.html#main
+parser.rreplace	parser-module.html#rreplace
