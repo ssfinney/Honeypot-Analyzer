@@ -3,6 +3,8 @@ Honeypot Analyzer
 
 ***This is alpha software and is under construction. Use at your own risk.***
 
+**This software isn't functional and is therefore deprecated. For a better, open-source log management tool, see [Logstash](http://www.logstash.net).**
+
 
 ## Table of Contents<a name="table_of_contents"></a>
 * [Introduction & Description](#introduction)
