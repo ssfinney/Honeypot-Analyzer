@@ -3,7 +3,7 @@
 # parses them, and stores them in a SQLite database.
 #
 # Command line usage:
-#       python backend_couch.py --log <logfile name> --db <database name>
+#       python backend_new.py --log <logfile name> --db <database name>
 #	   
 # You can find out more about HoneyD here: http://www.honeyd.org
 #
@@ -15,8 +15,7 @@
 
 import argparse
 import csv
-import json
-import requests
+import sqlite3
 from time import time
 
 
@@ -34,8 +33,8 @@ def process_args():
 	arg_parser.add_argument('-l', '--log', type=str, default='logfile.log',
 							help='the log file\'s name. Default: logfile.log')
 							
-	arg_parser.add_argument('-d', '--db', type=str, default='logs',
-							help='the database\'s name. Default: logs')
+	arg_parser.add_argument('-d', '--db', type=str, default='log.sqlite',
+							help='the database\'s name. Default: log.sqlite')
 	
 	args = vars( arg_parser.parse_args() )
 	
@@ -52,9 +51,10 @@ def process_log(log_name, db_name):
 	db_name  -- the database file's name
 	"""
 
-	url = 'http://localhost:5984/' + str(db_name)
-	headers = {'content-type': 'application/json'}
-	
+
+	# Open a connection to the local SQLite database.
+	db = sqlite3.connect(db_name)
+	cursor = db.cursor()
 	
 	
 	with open(log_name, 'r') as log:
@@ -65,8 +65,6 @@ def process_log(log_name, db_name):
 		csv_data = csv.reader(log, delimiter=' ')
 		
 		for row in csv_data:
-
-			entry = {"type":"entry"}
 						
 			if "honeyd" in row[1]:
 				continue
@@ -74,59 +72,50 @@ def process_log(log_name, db_name):
 				
 			elif "icmp" in row[1]:
 			
-				entry["date"], entry["time_of_day"] = rreplace(row[0], '-', ' ', 1).split()
-
-				entry["protocol"], entry["connection"], entry["src_ip"], \
-				entry["dst_ip"] = row[1:5]
+				date, time_of_day = rreplace(row[0], '-', ' ', 1).split()
+				protocol, connection, src_ip, dst_ip = row[1:5]
 				
-				entry["info"] = ''.join(row[5] + " " + row[6])
+				info = ''.join(row[5] + " " + row[6])
 				
 				if '[' in row[-1]:
-					entry["environment"] = row[-1]
-				#else:
-				#	entry["environment"] = ''
-				
-				req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-							headers=headers)
-
-				print(req)
-
+					environment = row[-1]
+				else:
+					environment = ''
 				
 				
-				#cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-				#		[date, time_of_day, protocol, connection, src_ip,\
-				#		'', dst_ip, '', info, environment])
+				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
+						[date, time_of_day, protocol, connection, src_ip,\
+						'', dst_ip, '', info, environment])
 							  
 		
 			elif "udp" in row[1] or "tcp" in row[1]:
 					
-				entry["date"], entry["time_of_day"] = rreplace(row[0], '-', ' ', 1).split()							
-				entry["protocol"], entry["connection"], entry["src_ip"], \
-				entry["src_port"], entry["dst_ip"], entry["dst_port"] = row[1:7]
+				date, time_of_day = rreplace(row[0], '-', ' ', 1).split()			
+				
+				protocol, connection, src_ip, src_port, \
+				dst_ip, dst_port = row[1:7]
 				
 				if len(row) >= 9:
-					entry["info"] = ''.join(row[7] + " " + row[8])
+					info = ''.join(row[7] + " " + row[8])
 				elif len(row) >= 8:
-					entry["info"] = ''.join(row[7])
+					info = ''.join(row[7])
 									
 				if '[' in row[-1]:
-					entry["environment"] = row[-1]
-				#else:
-				#	environment = ''
+					environment = row[-1]
+				else:
+					environment = ''
+					
 				
-				req = requests.post(url, data=json.dumps(entry,separators=(',', ': ')),
-							headers=headers)
-
-				print(req)	
+				cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
+						[date, time_of_day, protocol, connection, src_ip,\
+						src_port, dst_ip, dst_port, info, environment])
 				
-				#cursor.execute('Insert into Log Values(?,?,?,?,?,?,?,?,?,?);',\
-				#		[date, time_of_day, protocol, connection, src_ip,\
-				#		src_port, dst_ip, dst_port, info, environment])
-				
+	db.commit()
 	end = time()
 	print("Program Complete.")
 	print("Processing time: " + str(end-start))
 	
+	cursor.close()
 		
 		
 def rreplace(s, old, new, occurrence):
